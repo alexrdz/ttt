@@ -14,3 +14,15 @@ $ npm i -S
 $ npm run start
 ```
 
+
+
+### Player O wins - horizontal
+
+![screen recording 1](ScreenRecording2017-09-14-A.gif)
+
+
+
+### Player X wins - diagonal
+
+![screen recording 1](ScreenRecording2017-09-14-B.gif)
+
