@@ -21,14 +21,8 @@ const getRandomNumber= () => {
   let max = Math.ceil(3);
   return Math.floor(Math.random() * (3 - 0) ) + 0;
 }
-const checkForX = (elem, index, arr) => {
-  // console.log('elem', elem);
-  return elem === 'X';
-};
-const checkForO = (elem, index, arr) => {
-  // console.log('elem', elem);
-  return elem === 'O';
-};
+const checkForX = (elem) => elem === 'X';
+const checkForO = (elem) => elem === 'O';
 const gridLine = color.red('  +---+---+---+');
 const displayGrid = () => {
   const emptyGrid = grid.map(arr => arr.map(elem => elem === '' ? ' ' : elem));
@@ -54,6 +48,7 @@ const displayGrid = () => {
 
 // ------- start game
 const startGame = () => {
+  process.stdout.write('\033c');
   inquirer.prompt({
     type: 'list',
     name: 'player',
@@ -70,7 +65,9 @@ const startGame = () => {
       } else {
         checkForWin();
       }
-    });
+    })
+    .catch((err) => console.log(`.catch caught an error :( \n ${err}`));
+    
 }
 
 
@@ -122,7 +119,8 @@ const userMakesASelection = () => {
     inquirer.prompt(selectionPrompt).then( answers => {
       validateUserInput(answers.play);
       checkForWin();
-    });
+    })
+    .catch((err) => console.log(`.catch caught an error :( \n ${err}`));
   } else {
     checkForWin();
   }
