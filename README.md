@@ -26,3 +26,12 @@ $ npm run start
 
 ![screen recording 1](ScreenRecording2017-09-14-B.gif)
 
+
+#### Fix
+I encountered a `call stack size exceeded` issue and have made a slight change to amend this. The change is in a an unmerged branch.
+
+To see the fixes or use the less bugier version:
+```
+$ git checkout origin fix-one
+$ npm run start
+```
