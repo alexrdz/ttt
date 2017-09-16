@@ -10,15 +10,13 @@ const columns = ['a','b','c'];
 const gridLength = grid.length;
 let user,
      machine,
-     turns = 0,
-     next = 1,
-     last = gridLength - 1;
+     turns = 0;
 
 // utilities
 const getRandomNumber= () => {
   let min = Math.ceil(0);
   let max = Math.ceil(3);
-  return Math.floor(Math.random() * (3 - 0) ) + 0;
+  return Math.floor(Math.random() * 3 );
 }
 const checkForX = (elem) => elem === 'X';
 const checkForO = (elem) => elem === 'O';
@@ -57,13 +55,7 @@ const startGame = () => {
     .then( (answers) => {
       user = answers.player;
       machine = (user === 'X') ? 'O' : 'X';
-      
-      if (turns < 9) {
-        machineMakesASelection();
-        checkForWin();
-      } else {
-        checkForWin();
-      }
+      machineMakesASelection();
     })
     .catch((err) => console.log(`.catch caught an error :( \n ${err}`));
     
@@ -90,21 +82,10 @@ const selectionIsValid = (selection) => {
   return selection === '' ? true : false;
 }
 
-
 const applyMachineSelection = (row, column) => {
   grid[row].splice(column, 1, machine);
 }
-
 // ------- end machine
-
-
-
-
-
-
-
-
-
 
 
 // ---------- user 
@@ -114,15 +95,11 @@ const selectionPrompt = {
   message: 'Please select your move'
 }
 const userMakesASelection = () => {
-  if (turns < 9) {
     inquirer.prompt(selectionPrompt).then( answers => {
       validateUserInput(answers.play);
       checkForWin();
     })
     .catch((err) => console.log(`.catch caught an error :( \n ${err}`));
-  } else {
-    checkForWin();
-  }
 }
 
 const validateUserInput = (input) => {
@@ -167,20 +144,6 @@ const rowIsValid = (row) => {
 // ---------- end user
 
 
-
-
-
-
-
-const endGame = () => {
-  process.exit();
-  return;
-}
-
-
-
-
-
 const checkForWin = () => {
   if (turns > 3) {
     for ( let i = 0; i < gridLength; i++ ) {
@@ -205,8 +168,6 @@ const checkForWin = () => {
       if (grid[0][2] === grid[1][1] && grid[1][1] === grid[2][0]) {
         gameOver(grid[1][1]);
       }
-
-
     }
   }
   if (turns === 9) {
@@ -214,7 +175,7 @@ const checkForWin = () => {
   }
 }
 
-function gameOver(winner) {
+const gameOver = (winner) => {
   if (winner === 'O') {
     console.log('\n O wins!');
     endGame();
@@ -225,6 +186,11 @@ function gameOver(winner) {
     console.log('\nGood game!'); 
     endGame();
   }
+}
+
+const endGame = () => {
+  process.exit();
+  return;
 }
 
 
