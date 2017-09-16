@@ -26,3 +26,5 @@ $ npm run start
 
 ![screen recording 1](ScreenRecording2017-09-14-B.gif)
 
+#### Fix
+I encountered a `call stack size exceeded` issue plus a small oversight in my diagonal check (l to r). I have made a couple slight changes to amend these issues. The changes are in a branch named `fix-one` but have not been merged so as to not change or update my original submission. *These alterations were done after due date* and are therefore not part of `master` branch.
