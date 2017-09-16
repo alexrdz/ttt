@@ -12,8 +12,7 @@ let user,
      machine,
      turns = 0,
      next = 1,
-     last = gridLength - 1,
-     win = false;
+     last = gridLength - 1;
 
 // utilities
 const getRandomNumber= () => {
@@ -59,7 +58,7 @@ const startGame = () => {
       user = answers.player;
       machine = (user === 'X') ? 'O' : 'X';
       
-      if (turns < 9 && win === false) {
+      if (turns < 9) {
         machineMakesASelection();
         checkForWin();
       } else {
@@ -76,7 +75,7 @@ const machineMakesASelection = () => {
   const row = getRandomNumber();
   const column = getRandomNumber();
 
-  if (selectionIsValid(grid[row][column]) && win === false) {
+  if (selectionIsValid(grid[row][column])) {
     applyMachineSelection(row, column);
     turns++;
     displayGrid();
@@ -115,7 +114,7 @@ const selectionPrompt = {
   message: 'Please select your move'
 }
 const userMakesASelection = () => {
-  if (turns < 9 && win === false) {
+  if (turns < 9) {
     inquirer.prompt(selectionPrompt).then( answers => {
       validateUserInput(answers.play);
       checkForWin();
@@ -174,7 +173,6 @@ const rowIsValid = (row) => {
 
 
 const endGame = () => {
-  win = true;
   process.exit();
   return;
 }
@@ -184,45 +182,34 @@ const endGame = () => {
 
 
 const checkForWin = () => {
-  if (turns > 3 && win === false) {
+  if (turns > 3) {
     for ( let i = 0; i < gridLength; i++ ) {
       // vertical
-      if (grid[0][i] === 'X' && grid[1][i] === 'X' && grid[2][i] === 'X' ) {
-        gameOver('X');
+      if (grid[0][i] === grid[1][i] && grid[1][i] === grid[2][i]) {
+        gameOver(grid[0][i]);
       }
-      if (grid[0][i] === 'O' && grid[1][i] === 'O' && grid[2][i] === 'O' ) {
-        gameOver('O');
-      }
-
 
       // check for horizontal win
       if (grid[i].every(checkForX)) {
         gameOver('X');
       }
-      
       if (grid[i].every(checkForO)) {
         gameOver('O');
       }
 
       // check for diagonal (l to r)
-      if (grid[0][0] === grid[next][next]) {
-        let third = next+1;
-        if (grid[next][next] === grid[third][third]) {
-          gameOver(grid[next][next]);
-        }
+      if (grid[0][0] === grid[1][1] && grid[1][1] === grid[2][2]) {
+        gameOver(grid[0][0]);
       }
       // check for diagonal win (r to l)
-      if (grid[0][last] === grid[next][next]) {
-        let third = next-1;
-        if (grid[next][next] === grid[last][third]) {
-          gameOver(grid[next][next]);
-        }
+      if (grid[0][2] === grid[1][1] && grid[1][1] === grid[2][0]) {
+        gameOver(grid[1][1]);
       }
 
 
     }
   }
-  if (turns === 9 && win === false) {
+  if (turns === 9) {
     gameOver('draw');
   }
 }
