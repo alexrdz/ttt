@@ -35,14 +35,6 @@ const displayGrid = () => {
 }
 
 
-
-
-
-
-
-
-
-
 // ------- start game
 const startGame = () => {
   process.stdout.write('\033c');
@@ -129,7 +121,6 @@ const applyUserSelection = (column, row) => {
     userMakesASelection();
   }
 }
-
 
 const columnIsValid = (column) => {
   return columns.indexOf(column) === -1 ? false : true;
