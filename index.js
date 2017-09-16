@@ -188,34 +188,34 @@ const checkForWin = () => {
     for ( let i = 0; i < gridLength; i++ ) {
       // vertical
       if (grid[0][i] === 'X' && grid[1][i] === 'X' && grid[2][i] === 'X' ) {
-        gameOver('X', 'vert');
+        gameOver('X');
       }
       if (grid[0][i] === 'O' && grid[1][i] === 'O' && grid[2][i] === 'O' ) {
-        gameOver('O', 'vert');
+        gameOver('O');
       }
 
 
       // check for horizontal win
       if (grid[i].every(checkForX)) {
-        gameOver('X', 'horz');
+        gameOver('X');
       }
       
       if (grid[i].every(checkForO)) {
-        gameOver('O', 'horz');
+        gameOver('O');
       }
 
       // check for diagonal (l to r)
       if (grid[0][0] === grid[next][next]) {
         let third = next+1;
         if (grid[next][next] === grid[third][third]) {
-          gameOver(grid[next][next], 'diag -lr');          
+          gameOver(grid[next][next]);
         }
       }
       // check for diagonal win (r to l)
       if (grid[i][last] === grid[next][next]) {
         let third = next-1;
         if (grid[next][next] === grid[last][third]) {
-          gameOver(grid[next][next], 'diag-rl');
+          gameOver(grid[next][next]);
         }
       }
 
@@ -227,15 +227,15 @@ const checkForWin = () => {
   }
 }
 
-function gameOver(winner, dir) {
+function gameOver(winner) {
   if (winner === 'O') {
-    console.log('\n O wins!', dir);
+    console.log('\n O wins!');
     endGame();
   } else if (winner === 'X') {
-    console.log('\n X wins!', dir);
+    console.log('\n X wins!');
     endGame();
   } else if (winner === 'draw') {
-    console.log('\nGood game!', dir); 
+    console.log('\nGood game!'); 
     endGame();
   }
 }
